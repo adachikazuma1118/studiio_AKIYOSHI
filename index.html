@@ -3,559 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>studioHAW/U | 設計事務所</title>
-<meta name="description" content="studioHAW/U は家具製作とリノベーションを手がける設計事務所です。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex, nofollow">
+<title>チーム共有 | studioHAW/U</title>
 <style>
-  :root{
-    --paper:#EDEAE3;
-    --ink:#17181A;
-    --blueprint:#2B4C7E;
-    --steel:#8B8D89;
-    --oak:#B08252;
-    --white:#FFFFFF;
-    --line: rgba(23,24,26,0.18);
+  :root {
+    --bg: #efece5;
+    --panel: #f8f6f1;
+    --ink: #262420;
+    --ink-soft: #6b665c;
+    --line: #d9d3c6;
+    --accent: #8a5a34;
+    --accent-soft: #d8c3a9;
   }
 
-  *{margin:0;padding:0;box-sizing:border-box;}
+  * { box-sizing: border-box; }
 
-  html{scroll-behavior:smooth;}
-
-  body{
-    background:var(--paper);
-    color:var(--ink);
-   body{
-    font-family:'Noto Sans JP', sans-serif;
-    line-height:1.0;
-    -webkit-font-smoothing:antialiased;
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.7;
   }
 
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
   }
 
-  a{color:inherit; text-decoration:none;}
-  img{display:block; width:100%; height:100%; object-fit:cover;}
-
-  :focus-visible{
-    outline:2px solid var(--blueprint);
-    outline-offset:3px;
+  header.page-head {
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
   }
 
-  .mono{
-    font-family:'IBM Plex Mono', monospace;
-    letter-spacing:0.02em;
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
   }
 
-  .wrap{
-    max-width:1180px;
-    margin:0 auto;
-    padding:0 32px;
+  h1 {
+    font-size: 30px;
+    margin: 0 0 12px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
   }
 
-  /* ---------- crop marks (signature element) ---------- */
-  .crop{
-    position:absolute;
-    width:22px; height:22px;
-    pointer-events:none;
-  }
-  .crop::before, .crop::after{
-    content:'';
-    position:absolute;
-    background:currentColor;
-  }
-  .crop::before{ width:100%; height:1px; top:50%; }
-  .crop::after{ width:1px; height:100%; left:50%; }
-  .crop.tl{ top:18px; left:18px; color:var(--white); }
-  .crop.tr{ top:18px; right:18px; left:auto; color:var(--white); }
-  .crop.bl{ bottom:18px; left:18px; top:auto; color:var(--white); }
-  .crop.br{ bottom:18px; right:18px; top:auto; left:auto; color:var(--white); }
-
-  /* ---------- header / nav ---------- */
-  header{
-    position:fixed;
-    top:0; left:0; right:0;
-    z-index:50;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:20px 32px;
-    mix-blend-mode:difference;
-  }
-  header .logo{
-    color:var(--white);
-    font-weight:700;
-    font-size:15px;
-    letter-spacing:0.06em;
-  }
-  header nav{ display:flex; gap:28px; }
-  header{ transition:transform 0.45s cubic-bezier(.2,.8,.2,1); }
-  header.hide{ transform:translateY(-100%); }
-  header nav a{
-    position:relative;
-    color:var(--white);
-    font-size:13px;
-    font-family:'IBM Plex Mono', monospace;
-    letter-spacing:0.03em;
-    padding-bottom:3px;
-  }
-  header nav a::after{
-    content:'';
-    position:absolute;
-    left:0; bottom:0;
-    width:100%; height:1px;
-    background:currentColor;
-    transform:scaleX(0);
-    transform-origin:right;
-    transition:transform 0.35s cubic-bezier(.2,.8,.2,1);
-  }
-  header nav a:hover::after,
-  header nav a.current::after{
-    transform:scaleX(1);
-    transform-origin:left;
+  .lead {
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: 52ch;
   }
 
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative;
-    height:100svh;
-    min-height:560px;
-    overflow:hidden;
-    background:var(--ink);
-  }
-  .hero img{
-    opacity:0.78;
-    filter:grayscale(88%);
-  }
-  .hero .veil{
-    position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(23,24,26,0.35) 0%, rgba(23,24,26,0.15) 45%, rgba(23,24,26,0.75) 100%);
-  }
-  .hero-content{
-    position:absolute;
-    left:0; right:0; bottom:64px;
-    padding:0 32px;
-    color:var(--white);
-  }
-  .hero-eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    letter-spacing:0.14em;
-    opacity:0.85;
-    margin-bottom:14px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-  }
-  .hero-eyebrow .dim-line{
-    width:48px; height:1px; background:var(--white); opacity:0.6;
-  }
-  .hero h1{
-    font-size:clamp(40px, 9vw, 108px);
-    font-weight:300;
-    letter-spacing:0.01em;
-    line-height:1.02;
-  }
-  .hero h1 span{ color:var(--oak); }
-  .hero p.tagline{
-    margin-top:22px;
-    font-size:clamp(15px, 2vw, 19px);
-    max-width:34ch;
-    opacity:0.92;
-  }
-  .scroll-cue{
-    position:absolute;
-    right:32px; bottom:64px;
-    color:var(--white);
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.1em;
-    writing-mode:vertical-rl;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    opacity:0.8;
-  }
-  .scroll-cue::after{
-    content:'';
-    width:1px; height:40px;
-    background:var(--white);
-    opacity:0.5;
+  section {
+    margin-bottom: 56px;
   }
 
-  /* ---------- section shells ---------- */
-  section{ padding:120px 0; position:relative; }
-  .section-head{
-    display:flex;
-    align-items:baseline;
-    gap:18px;
-    margin-bottom:56px;
-    border-bottom:1px solid var(--line);
-    padding-bottom:22px;
-  }
-  .section-head .no{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
-    color:var(--blueprint);
-  }
-  .section-head h2{
-    font-size:clamp(26px, 4vw, 40px);
-    font-weight:300;
-    letter-spacing:0.01em;
-  }
-  .section-head .en{
-    margin-left:auto;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--steel);
-    letter-spacing:0.08em;
+  h2 {
+    font-size: 18px;
+    margin: 0 0 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
   }
 
-  /* ---------- about ---------- */
-  .about-grid{
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    gap:72px;
-    align-items:start;
-  }
-  .about-grid p{
-    font-size:17px;
-    max-width:52ch;
-  }
-  .about-grid p + p{ margin-top:20px; }
-  .spec-list{
-    border-top:1px solid var(--line);
-  }
-  .spec-list dt, .spec-list dd{
-    font-size:14px;
-    padding:16px 0;
-  }
-  .spec-row{
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    border-bottom:1px solid var(--line);
-    padding:16px 0;
-  }
-  .spec-row dt{
-    font-family:'IBM Plex Mono', monospace;
-    color:var(--steel);
-    flex:0 0 auto;
-  }
-  .spec-row dd{
-    text-align:right;
+  h2 .mark {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
   }
 
-  /* ---------- works ---------- */
-  .works-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:28px;
-    background:var(--paper);
-    max-width:1180px;
-    margin:0 auto;
-    padding:0 32px;
-  }
-  .work-card{
-    position:relative;
-    background:var(--ink);
-    aspect-ratio:4/5;
-    overflow:hidden;
-  }
-  .work-card img{
-    transition:transform 0.6s cubic-bezier(.2,.8,.2,1), filter 0.6s;
-    filter:grayscale(90%);
-  }
-  .work-card:hover img{
-    transform:scale(1.045);
-    filter:grayscale(0%);
-  }
-  .work-tag{
-    position:absolute;
-    left:16px; bottom:16px;
-    color:var(--white);
-    z-index:2;
-  }
-  .work-tag .num{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    opacity:0.8;
-    display:block;
-  }
-  .work-tag .name{
-    font-size:16px;
-    font-weight:500;
-    letter-spacing:0.01em;
-    margin-top:4px;
-  }
-  .work-veil{
-    position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(23,24,26,0) 55%, rgba(23,24,26,0.85) 100%);
-    z-index:1;
-  }
-  .work-card.placeholder-note{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:24px;
-  }
-  .work-card.placeholder-note span{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--white);
-    opacity:0.55;
-    line-height:1.8;
+  .section-note {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 20px;
   }
 
-  /* ---------- services ---------- */
-  .services{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:2px;
-    background:var(--line);
-  }
-  .service-card{
-    background:var(--paper);
-    padding:48px;
-  }
-  .service-card .no{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--oak);
-    margin-bottom:18px;
-    display:block;
-  }
-  .service-card h3{
-    font-size:24px;
-    font-weight:300;
-    letter-spacing:0.01em;
-    margin-bottom:16px;
-  }
-  .service-card p{
-    font-size:15px;
-    color:#3a3b38;
-    max-width:38ch;
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
   }
 
-  /* ---------- contact ---------- */
-  .contact{
-    background:var(--ink);
-    color:var(--white);
-  }
-  .contact .section-head{ border-bottom-color:rgba(255,255,255,0.15); }
-  .contact .section-head h2{ color:var(--white); }
-  .contact-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:48px;
-  }
-  .contact-grid p{
-    max-width:40ch;
-    opacity:0.85;
-    font-size:16px;
-  }
-  .contact-list{ border-top:1px solid rgba(255,255,255,0.15); }
-  .contact-row{
-    display:flex;
-    justify-content:space-between;
-    gap:16px;
-    padding:18px 0;
-    border-bottom:1px solid rgba(255,255,255,0.15);
-    font-size:15px;
-  }
-  .contact-row dt{
-    font-family:'IBM Plex Mono', monospace;
-    color:var(--steel);
-  }
-  .contact-row a:hover{ color:var(--oak); }
-
-  footer{
-    padding:28px 32px;
-    display:flex;
-    justify-content:space-between;
-    background:var(--ink);
-    color:var(--steel);
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.04em;
+  iframe.upload-frame {
+    display: block;
+    width: 100%;
+    height: 760px;
+    border: none;
   }
 
-  @media (max-width: 860px){
-    header nav{ display:none; }
-    .about-grid{ grid-template-columns:1fr; gap:40px; }
-    .works-grid{ grid-template-columns:repeat(2, 1fr); }
-    .services{ grid-template-columns:1fr; }
-    .contact-grid{ grid-template-columns:1fr; }
-    section{ padding:80px 0; }
+  .setup-note {
+    font-size: 12px;
+    color: var(--ink-soft);
+    background: var(--accent-soft);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-top: 12px;
   }
-  @media (max-width: 520px){
-    .works-grid{ grid-template-columns:1fr; }
-    .wrap{ padding:0 20px; }
+
+  #cusdis_thread {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    font-size: 12px;
+    color: var(--ink-soft);
   }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<header>
-  <div class="logo">studioHAW/U</div>
-  <nav>
-    <a href="#about">ABOUT</a>
-    <a href="#works">WORKS</a>
-    <a href="#services">SERVICE</a>
-    <a href="members.html">MEMBERS</a>
-    <a href="#contact">CONTACT</a>
-  </nav>
-</header>
+  <header class="page-head">
+    <div class="eyebrow">studioHAW/U</div>
+    <h1>チーム共有</h1>
+    <p class="lead">資料のアップロードとコメントはこちらから。</p>
+  </header>
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <!-- ▼差し替え: 事務所の代表的な写真（横長推奨）。src を自分の画像パスに変更してください -->
-  <img src="20260712_153124.jpg" alt="studioHAW/U の設計・施工事例">
-  <div class="veil"></div>
-  <span class="crop tl"></span><span class="crop tr"></span>
-  <span class="crop bl"></span><span class="crop br"></span>
-  <div class="hero-content">
-    <div class="hero-eyebrow"><span class="dim-line"></span>ARCHITECTURE / FURNITURE / RENOVATION</div>
-    <h1>How<br>Architecture<br>With<br>U<br></h1>
-    <p class="tagline">家具以上建築未満の制作を行うユニット。</p>
-  </div>
-  <div class="scroll-cue">SCROLL — 001</div>
-</section>
+  <section>
+    <h2><span class="mark"></span>ファイルをアップロード</h2>
+    <p class="section-note">下のフォームからファイルを送信できます。送信されたファイルはGoogleドライブに集まります。</p>
+    <div class="panel">
+      <!-- ここにGoogleフォームの埋め込みURLを入れてください -->
+      <iframe class="upload-frame" src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true">
+        読み込んでいます…
+      </iframe>
+    </div>
+    <p class="setup-note">
+      設定手順: Googleフォームで「ファイルアップロード」形式の質問を作成 → 右上の送信ボタン →
+      埋め込み用の「&lt;&gt;」アイコンをクリック → 表示されたiframeのsrc URLを上の<code>YOUR_FORM_ID</code>部分と置き換えてください。
+    </p>
+  </section>
 
-<!-- ============ ABOUT ============ -->
-<section id="about">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="no mono">01</span>
-      <h2>事務所について</h2>
-      <span class="en">ABOUT</span>
-    </div>
-    <div class="about-grid">
-      <div>
-        <p>studioHAW/U は、住空間の設計と家具製作をひとつづきの仕事として捉える設計事務所です。図面を引く人と、木を削る人が同じテーブルにいる。だからこそ、空間と家具のあいだに継ぎ目のない提案ができます。</p>
-        <p>新築・リノベーションのご相談から、既存の住まいに合わせたオーダー家具の製作まで、規模を問わずご依頼いただけます。まずはお気軽にお問い合わせください。</p>
-      </div>
-      <dl class="spec-list">
-        <div class="spec-row"><dt>ESTABLISHED</dt><dd>[2023]</dd></div>
-        <div class="spec-row"><dt>LOCATION</dt><dd>[宇都宮市]</dd></div>
-        <div class="spec-row"><dt>FIELD</dt><dd>設計 / 家具製作 / リノベーション</dd></div>
-        <div class="spec-row"><dt>PRINCIPAL</dt><dd>[濱﨑　瀧大郎]</dd></div>
-      </dl>
-    </div>
-  </div>
-</section>
+  <section>
+    <h2><span class="mark"></span>コメント</h2>
+    <p class="section-note">気づいたことや連絡事項はこちらに残せます。</p>
 
-<!-- ============ WORKS ============ -->
-<section id="works" style="padding-top:0;">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="no mono">02</span>
-      <h2>活動実績</h2>
-      <span class="en">WORKS</span>
+    <!-- Cusdis -->
+    <div id="cusdis_thread"
+      data-host="https://cusdis.com"
+      data-app-id="YOUR_CUSDIS_APP_ID"
+      data-page-id="team-share"
+      data-page-url="https://adachikazuma1118.github.io/studiio_AKIYOSHI/team/"
+      data-page-title="チーム共有">
     </div>
-  </div>
-  <div class="works-grid">
-    <!-- ▼各カードの img src を実際の写真に差し替えてください。work-tag のテキストも編集可能です -->
-    <div class="work-card">
-      <img src="https://picsum.photos/id/1080/700/900" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 01</span><span class="name">[店舗先可動ルーバー]</span></div>
-    </div>
-    <div class="work-card">
-      <img src="https://picsum.photos/id/1060/700/900" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 02</span><span class="name">[今市駄菓子屋]</span></div>
-    </div>
-    <div class="work-card">
-      <img src="https://picsum.photos/id/106/700/900" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 03</span><span class="name">[イチゴ農家直売所]</span></div>
-    </div>
-    <div class="work-card">
-      <img src="https://picsum.photos/id/164/700/900" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 04</span><span class="name">[佐野古民家改修]</span></div>
-    </div>
-    <div class="work-card">
-      <img src="https://picsum.photos/id/175/700/900" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 05</span><span class="name">[物件名を入力]</span></div>
-    </div>
-    <div class="work-card placeholder-note">
-      <span>ここに写真を<br>追加できます<br>（&lt;div class="work-card"&gt; を<br>コピーして増やせます）</span>
-    </div>
-  </div>
-</section>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
-<!-- ============ SERVICES ============ -->
-<section id="services">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="no mono">03</span>
-      <h2>事業内容</h2>
-      <span class="en">SERVICE</span>
-    </div>
-  </div>
-  <div class="services">
-    <div class="service-card">
-      <span class="no mono">FURNITURE</span>
-      <h3>家具製作</h3>
-      <p>暮らしに合わせたオーダーメイド家具の設計・製作。素材選びから寸法の調整まで、空間に馴染む一点をつくります。</p>
-    </div>
-    <div class="service-card">
-      <span class="no mono">RENOVATION</span>
-      <h3>リノベーション</h3>
-      <p>住宅・店舗の改修設計から施工まで一貫して対応。既存の構造を活かしながら、暮らしに合わせて空間を組み直します。</p>
-    </div>
-  </div>
-</section>
+    <p class="setup-note">
+      設定手順: <a href="https://cusdis.com" target="_blank" rel="noopener">cusdis.com</a> で無料アカウント作成 → 新しいWebsiteを登録
+      （URLに <code>https://adachikazuma1118.github.io/studiio_AKIYOSHI/team/</code> を設定）→
+      発行された App ID を上の<code>YOUR_CUSDIS_APP_ID</code>部分と置き換えてください。
+    </p>
+  </section>
 
-<!-- ============ CONTACT ============ -->
-<section id="contact" class="contact">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="no mono">04</span>
-      <h2>お問い合わせ</h2>
-      <span class="en">CONTACT</span>
-    </div>
-    <div class="contact-grid">
-      <p>ご相談・お見積りのご依頼は、お気軽にご連絡ください。写真や図面など資料があれば合わせてお送りいただくとスムーズです。</p>
-      <dl class="contact-list">
-        <div class="contact-row"><dt>MAIL</dt><dd><a href="mailto:info@example.com">info@example.com</a></dd></div>
-        <div class="contact-row"><dt>TEL</dt><dd>[電話番号を入力]</dd></div>
-        <div class="contact-row"><dt>ADDRESS</dt><dd>[住所を入力]</dd></div>
-        <div class="contact-row"><dt>INSTAGRAM</dt><dd><a href="#">@[アカウント名を入力]</a></dd></div>
-      </dl>
-    </div>
-  </div>
-</section>
+  <footer>
+    studioHAW/U — チーム内共有ページ
+  </footer>
 
-<footer>
-  <span>© <span id="year"></span> studioHAW/U</span>
-  <span>ARCHITECTURE / FURNITURE / RENOVATION</span>
-</footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  (function(){
-    var header = document.querySelector('header');
-    var lastY = window.scrollY;
-    window.addEventListener('scroll', function(){
-      var y = window.scrollY;
-      if(y > lastY && y > 120){
-        header.classList.add('hide');
-      } else {
-        header.classList.remove('hide');
-      }
-      lastY = y;
-    }, { passive:true });
-  })();
-</script>
-
+</div>
 </body>
 </html>
