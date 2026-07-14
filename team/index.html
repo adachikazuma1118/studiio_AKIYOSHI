@@ -5,15 +5,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>チーム共有 | studioHAW/U</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #efece5;
+    --bg: #EDEAE3;
     --panel: #f8f6f1;
-    --ink: #262420;
+    --ink: #17181A;
     --ink-soft: #6b665c;
-    --line: #d9d3c6;
-    --accent: #8a5a34;
+    --line: rgba(23,24,26,0.18);
+    --accent: #B08252;
     --accent-soft: #d8c3a9;
+    --blueprint: #2B4C7E;
+    --steel: #8B8D89;
+    --white: #FFFFFF;
+  }
+
+  /* ---------- header / nav（本体サイトと共通） ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 32px;
+    mix-blend-mode:difference;
+  }
+  header .logo{
+    color:var(--white);
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.06em;
+  }
+  header nav{ display:flex; gap:28px; }
+  header{ transition:transform 0.45s cubic-bezier(.2,.8,.2,1); }
+  header.hide{ transform:translateY(-100%); }
+  header nav a{
+    position:relative;
+    color:var(--white);
+    font-size:13px;
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.03em;
+    padding-bottom:3px;
+  }
+  header nav a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:0;
+    width:100%; height:1px;
+    background:currentColor;
+    transform:scaleX(0);
+    transform-origin:right;
+    transition:transform 0.35s cubic-bezier(.2,.8,.2,1);
+  }
+  header nav a:hover::after,
+  header nav a.current::after{
+    transform:scaleX(1);
+    transform-origin:left;
+  }
+  @media (max-width: 860px){
+    header nav{ display:none; }
+  }
+
+  footer{
+    padding:28px 32px;
+    display:flex;
+    justify-content:space-between;
+    background:var(--ink);
+    color:var(--steel);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.04em;
+    margin-top:64px;
   }
 
   * { box-sizing: border-box; }
@@ -29,10 +94,10 @@
   .wrap {
     max-width: 760px;
     margin: 0 auto;
-    padding: 64px 24px 96px;
+    padding: 140px 24px 96px;
   }
 
-  header.page-head {
+  .page-head {
     margin-bottom: 56px;
     border-bottom: 1px solid var(--line);
     padding-bottom: 32px;
@@ -113,24 +178,31 @@
     border: 1px solid var(--line);
     border-radius: 4px;
     padding: 24px;
-  }
-
-  footer {
-    border-top: 1px solid var(--line);
-    padding-top: 24px;
-    font-size: 12px;
-    color: var(--ink-soft);
+    min-height: 900px;
   }
 </style>
 </head>
 <body>
+
+<header>
+  <div class="logo">studioHAW/U</div>
+  <nav>
+    <a href="../#about">ABOUT</a>
+    <a href="../#works">WORKS</a>
+    <a href="../#services">SERVICE</a>
+    <a href="../members.html">MEMBERS</a>
+    <a href="./" class="current">TEAM</a>
+    <a href="../#contact">CONTACT</a>
+  </nav>
+</header>
+
 <div class="wrap">
 
-  <header class="page-head">
+  <div class="page-head">
     <div class="eyebrow">studioHAW/U</div>
     <h1>チーム共有</h1>
     <p class="lead">資料のアップロードとコメントはこちらから。</p>
-  </header>
+  </div>
 
   <section>
     <h2><span class="mark"></span>ファイルをアップロード</h2>
@@ -163,10 +235,16 @@
   </section>
 
 
-  <footer>
-    studioHAW/U — チーム内共有ページ
-  </footer>
-
 </div>
+
+<footer>
+  <span>© <span id="year"></span> studioHAW/U</span>
+  <span>ARCHITECTURE / FURNITURE / RENOVATION</span>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
