@@ -7,7 +7,7 @@
 <meta name="description" content="studioHAW/U のメンバー紹介です。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#EDEAE3;
@@ -47,12 +47,29 @@
   }
   header .logo{ color:var(--white); font-weight:700; font-size:15px; letter-spacing:0.06em; }
   header nav{ display:flex; gap:28px; }
+  header{ transition:transform 0.45s cubic-bezier(.2,.8,.2,1); }
+  header.hide{ transform:translateY(-100%); }
   header nav a{
+    position:relative;
     color:var(--white); font-size:13px;
     font-family:'IBM Plex Mono', monospace; letter-spacing:0.03em;
+    padding-bottom:3px;
+  }
+  header nav a::after{
+    content:'';
+    position:absolute; left:0; bottom:0;
+    width:100%; height:1px;
+    background:currentColor;
+    transform:scaleX(0);
+    transform-origin:right;
+    transition:transform 0.35s cubic-bezier(.2,.8,.2,1);
+  }
+  header nav a:hover::after,
+  header nav a.current::after{
+    transform:scaleX(1);
+    transform-origin:left;
   }
   header nav a.current{ color:var(--oak); }
-  header nav a:hover{ opacity:0.7; }
   @media (max-width: 860px){ header nav{ display:none; } }
 
   /* ---------- page hero ---------- */
@@ -68,7 +85,7 @@
   .page-head .eyebrow .dim-line{ width:48px; height:1px; background:var(--blueprint); }
   .page-head h1{
     font-size:clamp(34px, 6vw, 56px);
-    font-weight:900; letter-spacing:-0.01em;
+    font-weight:300; letter-spacing:0.01em;
   }
   .page-head p{
     margin-top:16px; max-width:46ch; color:#3a3b38; font-size:16px;
@@ -90,7 +107,7 @@
     overflow:hidden;
     position:relative;
   }
-  .member-photo img{ filter:grayscale(20%); }
+  .member-photo img{ filter:grayscale(88%); }
   .member-photo .tag{
     position:absolute; top:14px; left:14px;
     color:var(--white); font-family:'IBM Plex Mono', monospace;
@@ -100,7 +117,7 @@
     display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
     margin-bottom:8px;
   }
-  .member-head h2{ font-size:28px; font-weight:700; }
+  .member-head h2{ font-size:28px; font-weight:300; letter-spacing:0.01em; }
   .member-head .role{
     font-family:'IBM Plex Mono', monospace;
     font-size:13px; color:var(--oak);
@@ -205,6 +222,20 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  (function(){
+    var header = document.querySelector('header');
+    var lastY = window.scrollY;
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 120){
+        header.classList.add('hide');
+      } else {
+        header.classList.remove('hide');
+      }
+      lastY = y;
+    }, { passive:true });
+  })();
 </script>
 
 </body>
