@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>チーム共有 | studioHAW/U</title>
+<style>
+  :root {
+    --bg: #efece5;
+    --panel: #f8f6f1;
+    --ink: #262420;
+    --ink-soft: #6b665c;
+    --line: #d9d3c6;
+    --accent: #8a5a34;
+    --accent-soft: #d8c3a9;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.7;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  header.page-head {
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 32px;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 30px;
+    margin: 0 0 12px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .lead {
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: 52ch;
+  }
+
+  section {
+    margin-bottom: 56px;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin: 0 0 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  h2 .mark {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .section-note {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 20px;
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  iframe.upload-frame {
+    display: block;
+    width: 100%;
+    height: 760px;
+    border: none;
+  }
+
+  .setup-note {
+    font-size: 12px;
+    color: var(--ink-soft);
+    background: var(--accent-soft);
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-top: 12px;
+  }
+
+  #cusdis_thread {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page-head">
+    <div class="eyebrow">studioHAW/U</div>
+    <h1>チーム共有</h1>
+    <p class="lead">資料のアップロードとコメントはこちらから。</p>
+  </header>
+
+  <section>
+    <h2><span class="mark"></span>ファイルをアップロード</h2>
+    <p class="section-note">下のフォームからファイルを送信できます。送信されたファイルはGoogleドライブに集まります。</p>
+    <div class="panel">
+      <!-- ここにGoogleフォームの埋め込みURLを入れてください -->
+      <iframe class="upload-frame" src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true">
+        読み込んでいます…
+      </iframe>
+    </div>
+    <p class="setup-note">
+      設定手順: Googleフォームで「ファイルアップロード」形式の質問を作成 → 右上の送信ボタン →
+      埋め込み用の「&lt;&gt;」アイコンをクリック → 表示されたiframeのsrc URLを上の<code>YOUR_FORM_ID</code>部分と置き換えてください。
+    </p>
+  </section>
+
+  <section>
+    <h2><span class="mark"></span>コメント</h2>
+    <p class="section-note">気づいたことや連絡事項はこちらに残せます。</p>
+
+    <!-- Cusdis -->
+    <div id="cusdis_thread"
+      data-host="https://cusdis.com"
+      data-app-id="YOUR_CUSDIS_APP_ID"
+      data-page-id="team-share"
+      data-page-url="https://adachikazuma1118.github.io/studiio_AKIYOSHI/team/"
+      data-page-title="チーム共有">
+    </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+    <p class="setup-note">
+      設定手順: <a href="https://cusdis.com" target="_blank" rel="noopener">cusdis.com</a> で無料アカウント作成 → 新しいWebsiteを登録
+      （URLに <code>https://adachikazuma1118.github.io/studiio_AKIYOSHI/team/</code> を設定）→
+      発行された App ID を上の<code>YOUR_CUSDIS_APP_ID</code>部分と置き換えてください。
+    </p>
+  </section>
+
+  <footer>
+    studioHAW/U — チーム内共有ページ
+  </footer>
+
+</div>
+</body>
+</html>
