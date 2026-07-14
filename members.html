@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEMBERS | studioHAW/U</title>
+<meta name="description" content="studioHAW/U のメンバー紹介です。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEAE3;
+    --ink:#17181A;
+    --blueprint:#2B4C7E;
+    --steel:#8B8D89;
+    --oak:#B08252;
+    --white:#FFFFFF;
+    --line: rgba(23,24,26,0.18);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Zen Kaku Gothic New', sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  a{color:inherit; text-decoration:none;}
+  img{display:block; width:100%; height:100%; object-fit:cover;}
+  :focus-visible{ outline:2px solid var(--blueprint); outline-offset:3px; }
+  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+
+  /* ---------- header / nav (index.html と共通) ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 32px;
+    background:var(--ink);
+  }
+  header .logo{ color:var(--white); font-weight:700; font-size:15px; letter-spacing:0.06em; }
+  header nav{ display:flex; gap:28px; }
+  header nav a{
+    color:var(--white); font-size:13px;
+    font-family:'IBM Plex Mono', monospace; letter-spacing:0.03em;
+  }
+  header nav a.current{ color:var(--oak); }
+  header nav a:hover{ opacity:0.7; }
+  @media (max-width: 860px){ header nav{ display:none; } }
+
+  /* ---------- page hero ---------- */
+  .page-head{
+    padding:96px 0 64px;
+    border-bottom:1px solid var(--line);
+  }
+  .page-head .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.14em; color:var(--blueprint);
+    display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  }
+  .page-head .eyebrow .dim-line{ width:48px; height:1px; background:var(--blueprint); }
+  .page-head h1{
+    font-size:clamp(34px, 6vw, 56px);
+    font-weight:900; letter-spacing:-0.01em;
+  }
+  .page-head p{
+    margin-top:16px; max-width:46ch; color:#3a3b38; font-size:16px;
+  }
+
+  /* ---------- member profiles ---------- */
+  .member{
+    padding:72px 0;
+    border-bottom:1px solid var(--line);
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:56px;
+    align-items:start;
+  }
+  .member:last-child{ border-bottom:none; }
+  .member-photo{
+    aspect-ratio:4/5;
+    background:var(--ink);
+    overflow:hidden;
+    position:relative;
+  }
+  .member-photo img{ filter:grayscale(20%); }
+  .member-photo .tag{
+    position:absolute; top:14px; left:14px;
+    color:var(--white); font-family:'IBM Plex Mono', monospace;
+    font-size:11px; opacity:0.85;
+  }
+  .member-head{
+    display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+  .member-head h2{ font-size:28px; font-weight:700; }
+  .member-head .role{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; color:var(--oak);
+  }
+  .member-comment{
+    font-size:16px; max-width:56ch; margin:18px 0 28px;
+  }
+  .member-spec{ border-top:1px solid var(--line); }
+  .member-spec-row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:20px;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .member-spec-row dt{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--steel);
+  }
+  .member-spec-row dd{ max-width:56ch; }
+
+  footer{
+    padding:28px 32px;
+    display:flex; justify-content:space-between;
+    background:var(--ink); color:var(--steel);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px; letter-spacing:0.04em;
+  }
+
+  @media (max-width: 700px){
+    .member{ grid-template-columns:1fr; gap:28px; }
+    .member-photo{ max-width:220px; }
+    .page-head{ padding:72px 0 48px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">studioHAW/U</div>
+  <nav>
+    <a href="index.html#about">ABOUT</a>
+    <a href="index.html#works">WORKS</a>
+    <a href="index.html#services">SERVICE</a>
+    <a href="members.html" class="current">MEMBERS</a>
+    <a href="index.html#contact">CONTACT</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="eyebrow"><span class="dim-line"></span>OUR TEAM</div>
+    <h1>メンバー紹介</h1>
+    <p>設計から製作まで、それぞれの持ち場でものづくりに向き合うメンバーです。</p>
+  </div>
+
+  <!-- ▼各メンバーの img src・名前・経歴などを差し替えてください。人数はこの <div class="member">〜</div> ごとコピーして増減できます -->
+
+  <div class="member">
+    <div class="member-photo">
+      <img src="https://picsum.photos/id/1005/500/625" alt="[メンバー名]の写真">
+      <span class="tag mono">MEMBER 01</span>
+    </div>
+    <div>
+      <div class="member-head">
+        <h2>[氏名を入力]</h2>
+        <span class="role">[役職を入力 / 例: 代表 / 設計]</span>
+      </div>
+      <p class="member-comment">[一言コメントや仕事への姿勢を入力]</p>
+      <dl class="member-spec">
+        <div class="member-spec-row"><dt>経歴</dt><dd>[経歴を入力。学歴、前職、資格など]</dd></div>
+        <div class="member-spec-row"><dt>得意分野</dt><dd>[得意分野を入力。例: 木工家具の設計、狭小住宅のリノベーション]</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="member">
+    <div class="member-photo">
+      <img src="https://picsum.photos/id/1027/500/625" alt="[メンバー名]の写真">
+      <span class="tag mono">MEMBER 02</span>
+    </div>
+    <div>
+      <div class="member-head">
+        <h2>[氏名を入力]</h2>
+        <span class="role">[役職を入力]</span>
+      </div>
+      <p class="member-comment">[一言コメントや仕事への姿勢を入力]</p>
+      <dl class="member-spec">
+        <div class="member-spec-row"><dt>経歴</dt><dd>[経歴を入力]</dd></div>
+        <div class="member-spec-row"><dt>得意分野</dt><dd>[得意分野を入力]</dd></div>
+      </dl>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>© <span id="year"></span> studioHAW/U</span>
+  <span>ARCHITECTURE / FURNITURE / RENOVATION</span>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
