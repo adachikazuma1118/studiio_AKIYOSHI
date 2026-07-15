@@ -83,7 +83,9 @@
     justify-content:space-between;
     padding:20px 32px;
     mix-blend-mode:difference;
+    transition:transform 0.45s cubic-bezier(.2,.8,.2,1);
   }
+  header.hide{ transform:translateY(-100%); }
   header .logo{
     color:var(--white);
     font-weight:700;
@@ -91,8 +93,6 @@
     letter-spacing:0.06em;
   }
   header nav{ display:flex; gap:28px; }
-  header{ transition:transform 0.45s cubic-bezier(.2,.8,.2,1); }
-  header.hide{ transform:translateY(-100%); }
   header nav a{
     position:relative;
     color:var(--white);
@@ -125,18 +125,25 @@
     overflow:hidden;
     background:var(--ink);
   }
-  .hero-video-wrap{
+  .hero-slider{
     position:absolute; inset:0;
     overflow:hidden;
     background:var(--ink);
   }
-  .hero-video-wrap iframe{
-    position:absolute;
-    top:50%; left:50%;
-    width:100vw; height:56.25vw;
-    min-height:100vh; min-width:177.78vh;
-    transform:translate(-50%,-50%);
-    pointer-events:none;
+  .hero-slider-track{
+    display:flex;
+    width:500%;
+    height:100%;
+    transition:transform 1s cubic-bezier(.2,.8,.2,1);
+  }
+  .hero-slide{
+    width:20%;
+    height:100%;
+    flex-shrink:0;
+  }
+  .hero-slide img{
+    width:100%; height:100%;
+    object-fit:cover;
     filter:grayscale(88%);
     opacity:0.78;
   }
@@ -305,7 +312,8 @@
     position:absolute; inset:0;
     background:linear-gradient(180deg, rgba(23,24,26,0) 55%, rgba(23,24,26,0.85) 100%);
     z-index:1;
- .work-card.video-card iframe{
+  }
+  .work-card.video-card iframe{
     width:100%; height:100%;
     border:none;
   }
@@ -358,7 +366,7 @@
   .service-card p{
     font-size:15px;
     color:#3a3b38;
-     }
+  }
 
   /* ---------- contact ---------- */
   .contact{
@@ -432,11 +440,15 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero">
-  <!-- ▼YouTube動画のIDに差し替えてください（3箇所すべて同じID） -->
-  <div class="hero-video-wrap">
-    <iframe src="https://www.youtube.com/embed/i3MBjRe8g-s?autoplay=1&mute=1&loop=1&playlist=i3MBjRe8g-s&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
-      title="studioHAW/U 紹介動画" frameborder="0"
-      allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  <!-- ▼4枚の写真を差し替えてください。5枚目は1枚目と同じ画像（ループを自然に見せるためのダミー）です -->
+  <div class="hero-slider">
+    <div class="hero-slider-track" id="heroTrack">
+      <div class="hero-slide"><img src="https://picsum.photos/id/1076/1600/1000" alt="施工事例 1"></div>
+      <div class="hero-slide"><img src="https://picsum.photos/id/1080/1600/1000" alt="施工事例 2"></div>
+      <div class="hero-slide"><img src="https://picsum.photos/id/1060/1600/1000" alt="施工事例 3"></div>
+      <div class="hero-slide"><img src="https://picsum.photos/id/106/1600/1000" alt="施工事例 4"></div>
+      <div class="hero-slide"><img src="https://picsum.photos/id/1076/1600/1000" alt="施工事例 1" aria-hidden="true"></div>
+    </div>
   </div>
   <div class="veil"></div>
   <span class="crop tl"></span><span class="crop tr"></span>
@@ -482,7 +494,6 @@
     </div>
   </div>
   <div class="works-grid">
-    <!-- ▼各カードの img src を実際の写真に差し替えてください。work-tag のテキストも編集可能です -->
     <div class="work-card">
       <img src="photo/IMG_8638_Original.JPG" alt="施工事例の写真">
       <div class="work-veil"></div>
@@ -499,12 +510,10 @@
       <div class="work-tag"><span class="num mono">WORK 03</span><span class="name">今市駄菓子屋</span></div>
     </div>
     <div class="work-card video-card">
-      <!-- ▼YouTube動画のIDに差し替えてください -->
-    <iframe src="https://www.youtube.com/embed/i3MBjRe8g-s" title="佐野古民家改修 施工事例動画" allow="encrypted-media" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/i3MBjRe8g-s" title="佐野古民家改修 施工事例動画" allow="encrypted-media" allowfullscreen></iframe>
       <div class="work-veil"></div>
       <div class="work-tag"><span class="num mono">WORK 04</span><span class="name">佐野古民家改修</span></div>
-    
-     </div>
+    </div>
   </div>
 </section>
 
@@ -558,6 +567,26 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  (function(){
+    var track = document.getElementById('heroTrack');
+    if(!track) return;
+    var total = track.children.length; // 5 (4枚 + ループ用ダミー1枚)
+    var real = total - 1;
+    var index = 0;
+    setInterval(function(){
+      index++;
+      track.style.transition = 'transform 1s cubic-bezier(.2,.8,.2,1)';
+      track.style.transform = 'translateX(-' + (index * (100/total)) + '%)';
+      if(index === real){
+        setTimeout(function(){
+          track.style.transition = 'none';
+          index = 0;
+          track.style.transform = 'translateX(0%)';
+        }, 1050);
+      }
+    }, 4500);
+  })();
 
   (function(){
     var header = document.querySelector('header');
