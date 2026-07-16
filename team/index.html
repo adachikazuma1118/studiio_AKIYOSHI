@@ -34,10 +34,19 @@
     mix-blend-mode:difference;
   }
   header .logo{
+    display:flex;
+    align-items:center;
     color:var(--white);
     font-weight:700;
     font-size:15px;
     letter-spacing:0.06em;
+  }
+  header .logo img{
+    display:block;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
   }
   header nav{ display:flex; gap:28px; }
   header{ transition:transform 0.45s cubic-bezier(.2,.8,.2,1); }
@@ -185,7 +194,7 @@
 <body>
 
 <header>
-  <div class="logo">studioHAW/U</div>
+  <div class="logo"><img src="../logo.png" alt="studioHAW/U"></div>
   <nav>
     <a href="../#about">ABOUT</a>
     <a href="../#works">WORKS</a>

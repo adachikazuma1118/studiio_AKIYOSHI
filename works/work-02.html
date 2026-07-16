@@ -43,7 +43,8 @@
     background:var(--paper);
     border-bottom:1px solid var(--line);
   }
-  header .logo{ font-weight:700; font-size:15px; letter-spacing:0.06em; }
+  header .logo{ display:flex; align-items:center; font-weight:700; font-size:15px; letter-spacing:0.06em; }
+  header .logo img{ display:block; width:40px; height:40px; border-radius:50%; object-fit:cover; }
   header nav{ display:flex; gap:28px; }
   header nav a{
     font-size:13px;
@@ -141,7 +142,7 @@
 <body>
 
 <header>
-  <a class="logo" href="../index.html">studioHAW/U</a>
+  <a class="logo" href="../index.html"><img src="../logo.png" alt="studioHAW/U"></a>
   <nav>
     <a href="../index.html#about">ABOUT</a>
     <a href="../index.html#works">WORKS</a>
