@@ -55,24 +55,6 @@
     padding:0 32px;
   }
 
-  /* ---------- crop marks (signature element) ---------- */
-  .crop{
-    position:absolute;
-    width:22px; height:22px;
-    pointer-events:none;
-  }
-  .crop::before, .crop::after{
-    content:'';
-    position:absolute;
-    background:currentColor;
-  }
-  .crop::before{ width:100%; height:1px; top:50%; }
-  .crop::after{ width:1px; height:100%; left:50%; }
-  .crop.tl{ top:18px; left:18px; color:var(--white); }
-  .crop.tr{ top:18px; right:18px; left:auto; color:var(--white); }
-  .crop.bl{ bottom:18px; left:18px; top:auto; color:var(--white); }
-  .crop.br{ bottom:18px; right:18px; top:auto; left:auto; color:var(--white); }
-
   /* ---------- header / nav ---------- */
   header{
     position:fixed;
@@ -520,12 +502,10 @@
     </div>
   </div>
   <div class="veil"></div>
-  <span class="crop tl"></span><span class="crop tr"></span>
-  <span class="crop bl"></span><span class="crop br"></span>
   <div class="hero-content">
     <div class="hero-eyebrow"><span class="dim-line"></span>ARCHITECTURE / FURNITURE / RENOVATION</div>
     <h1>How<br>Architecture<br>With<br>U</h1>
-    <p class="tagline">空間の設計から家具の製作まで、ひとつの手で仕上げる設計事務所です。</p>
+    <p class="tagline">運営、構想から家具の製作まで、ひとつの手で仕上げる設計事務所です。</p>
   </div>
   <div class="scroll-cue">SCROLL — 001</div>
 </section>
@@ -607,7 +587,7 @@
     <div class="service-card">
       <span class="no mono">FURNITURE</span>
       <h3>家具製作</h3>
-      <p>暮らしに合わせたオーダーメイド家具の設計・製作。素材選びから寸法の調整まで、空間に馴染む一点をつくります。</p>
+      <p>暮らしに合わせたオーダーメイド家具の設計・製作。今お使いの家具を状況に合わせて再構築することも可能です。</p>
     </div>
     <div class="service-card">
       <span class="no mono">RENOVATION</span>
