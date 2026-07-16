@@ -268,9 +268,9 @@
 
   /* ---------- works ---------- */
   .works-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:28px;
+    display:flex;
+    flex-direction:column;
+    gap:112px;
     background:var(--paper);
     max-width:1180px;
     margin:0 auto;
@@ -278,8 +278,10 @@
   }
   .work-card{
     position:relative;
+  }
+  .work-card .img-frame{
     background:var(--ink);
-    aspect-ratio:4/5;
+    aspect-ratio:16/9;
     overflow:hidden;
   }
   .work-card img{
@@ -287,41 +289,36 @@
     filter:grayscale(90%);
   }
   .work-card:hover img{
-    transform:scale(1.045);
+    transform:scale(1.035);
     filter:grayscale(0%);
   }
   .work-tag{
-    position:absolute;
-    left:16px; bottom:16px;
-    color:var(--white);
-    z-index:2;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:24px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
   }
-  .work-tag .num{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    opacity:0.8;
-    display:block;
+  .work-tag .top-row{
+    display:flex;
+    align-items:baseline;
   }
   .work-tag .name{
-    font-size:16px;
+    font-size:18px;
     font-weight:500;
     letter-spacing:0.01em;
-    margin-top:4px;
   }
-  .work-veil{
-    position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(23,24,26,0) 55%, rgba(23,24,26,0.85) 100%);
-    z-index:1;
+  .work-tag .year{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--steel);
   }
   .work-card.video-card iframe{
     width:100%; height:100%;
     border:none;
   }
-  .work-card.video-card .work-veil,
-  .work-card.video-card .work-tag{
-    pointer-events:none;
-  }
-  .work-card.placeholder-note{
+  .work-card.placeholder-note .img-frame{
     display:flex;
     align-items:center;
     justify-content:center;
@@ -414,13 +411,12 @@
   @media (max-width: 860px){
     header nav{ display:none; }
     .about-grid{ grid-template-columns:1fr; gap:40px; }
-    .works-grid{ grid-template-columns:repeat(2, 1fr); }
+    .works-grid{ gap:64px; }
     .services{ grid-template-columns:1fr; }
     .contact-grid{ grid-template-columns:1fr; }
     section{ padding:80px 0; }
   }
   @media (max-width: 520px){
-    .works-grid{ grid-template-columns:1fr; }
     .wrap{ padding:0 20px; }
   }
 </style>
@@ -495,24 +491,32 @@
   </div>
   <div class="works-grid">
     <div class="work-card">
-      <img src="photo/IMG_8638_Original.JPG" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 01</span><span class="name">店舗先可動式ルーバー</span></div>
+      <div class="img-frame"><img src="photo/IMG_8638_Original.JPG" alt="施工事例の写真"></div>
+      <div class="work-tag">
+        <div class="top-row"><span class="name">店舗先可動式ルーバー</span></div>
+        <span class="year mono">2023</span>
+      </div>
     </div>
     <div class="work-card">
-      <img src="photo/20231223_132703.JPG" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 02</span><span class="name">イチゴ農家直売所</span></div>
+      <div class="img-frame"><img src="photo/20231223_132703.JPG" alt="施工事例の写真"></div>
+      <div class="work-tag">
+        <div class="top-row"><span class="name">イチゴ農家直売所</span></div>
+        <span class="year mono">2023</span>
+      </div>
     </div>
     <div class="work-card">
-      <img src="photo/IMG_6955.JPG" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 03</span><span class="name">今市駄菓子屋</span></div>
+      <div class="img-frame"><img src="photo/IMG_6955.JPG" alt="施工事例の写真"></div>
+      <div class="work-tag">
+        <div class="top-row"><span class="name">今市駄菓子屋</span></div>
+        <span class="year mono">2023</span>
+      </div>
     </div>
     <div class="work-card">
-      <img src="photo/IMG_8667.JPG" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 04</span><span class="name">佐野古民家改修</span></div>
+      <div class="img-frame"><img src="photo/IMG_8667.JPG" alt="施工事例の写真"></div>
+      <div class="work-tag">
+        <div class="top-row"><span class="name">佐野古民家改修</span></div>
+        <span class="year mono">2024</span>
+      </div>
     </div>
   </div>
 </section>
