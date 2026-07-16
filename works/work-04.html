@@ -89,10 +89,24 @@
   }
 
   .project-hero{
+    position:relative;
     aspect-ratio:16/9;
     overflow:hidden;
     background:var(--ink);
     margin-bottom:56px;
+  }
+  .project-hero .hero-slider{
+    position:absolute; inset:0;
+    overflow:hidden;
+  }
+  .project-hero .hero-slider-track{
+    display:flex;
+    height:100%;
+    transition:transform 1s cubic-bezier(.2,.8,.2,1);
+  }
+  .project-hero .hero-slide{
+    height:100%;
+    flex-shrink:0;
   }
 
   .project-body{
@@ -166,7 +180,15 @@
 
 <div class="wrap">
   <div class="project-hero">
-    <img src="../photo/IMG_8667.JPG" alt="佐野古民家改修">
+    <div class="hero-slider">
+      <div class="hero-slider-track" id="projectHeroTrack">
+        <div class="hero-slide"><img src="../photo/work-04/IMG_3104.JPG" alt="佐野古民家改修 1"></div>
+        <div class="hero-slide"><img src="../photo/work-04/IMG_8634.JPG" alt="佐野古民家改修 2"></div>
+        <div class="hero-slide"><img src="../photo/work-04/IMG_8642.JPG" alt="佐野古民家改修 3"></div>
+        <div class="hero-slide"><img src="../photo/work-04/IMG_8704.JPG" alt="佐野古民家改修 4"></div>
+        <div class="hero-slide"><img src="../photo/work-04/IMG_3104.JPG" alt="佐野古民家改修 1" aria-hidden="true"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -196,6 +218,30 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  (function(){
+    var track = document.getElementById('projectHeroTrack');
+    if(!track) return;
+    var total = track.children.length; // real photos + 1 loop dummy
+    var real = total - 1;
+    track.style.width = (total * 100) + '%';
+    Array.prototype.forEach.call(track.children, function(slide){
+      slide.style.width = (100 / total) + '%';
+    });
+    var index = 0;
+    setInterval(function(){
+      index++;
+      track.style.transition = 'transform 1s cubic-bezier(.2,.8,.2,1)';
+      track.style.transform = 'translateX(-' + (index * (100 / total)) + '%)';
+      if(index === real){
+        setTimeout(function(){
+          track.style.transition = 'none';
+          index = 0;
+          track.style.transform = 'translateX(0%)';
+        }, 1050);
+      }
+    }, 4500);
+  })();
 </script>
 
 </body>
