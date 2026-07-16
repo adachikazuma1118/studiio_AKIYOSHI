@@ -72,6 +72,69 @@
   header nav a.current{ color:var(--oak); }
   @media (max-width: 860px){ header nav{ display:none; } }
 
+  /* ---------- mobile nav (index.html と共通) ---------- */
+  .nav-toggle{
+    display:none;
+    position:relative;
+    z-index:60;
+    width:32px; height:22px;
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+  }
+  .nav-toggle span{
+    position:absolute;
+    left:0; right:0;
+    height:1px;
+    background:var(--white);
+    transition:transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.25s;
+  }
+  .nav-toggle span:nth-child(1){ top:2px; }
+  .nav-toggle span:nth-child(2){ top:11px; }
+  .nav-toggle span:nth-child(3){ top:20px; }
+  body.nav-open .nav-toggle span:nth-child(1){ transform:translateY(9px) rotate(45deg); }
+  body.nav-open .nav-toggle span:nth-child(2){ opacity:0; }
+  body.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-9px) rotate(-45deg); }
+
+  .mobile-nav{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:45;
+    background:var(--paper);
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap:6px;
+    padding:0 40px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-12px);
+    transition:opacity 0.4s cubic-bezier(.2,.8,.2,1), transform 0.4s cubic-bezier(.2,.8,.2,1), visibility 0s linear 0.4s;
+  }
+  body.nav-open .mobile-nav{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    transition:opacity 0.4s cubic-bezier(.2,.8,.2,1), transform 0.4s cubic-bezier(.2,.8,.2,1);
+  }
+  .mobile-nav a{
+    font-size:clamp(28px, 8vw, 40px);
+    font-weight:300;
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.02em;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    width:100%;
+  }
+  body.nav-open{ overflow:hidden; }
+
+  @media (max-width: 860px){
+    .nav-toggle{ display:block; }
+    .mobile-nav{ display:flex; }
+  }
+
   /* ---------- page hero ---------- */
   .page-head{
     padding:96px 0 64px;
@@ -107,7 +170,14 @@
     overflow:hidden;
     position:relative;
   }
-  .member-photo img{ filter:grayscale(88%); }
+  .member-photo img{
+    filter:grayscale(88%);
+    transition:filter 0.6s, transform 0.6s cubic-bezier(.2,.8,.2,1);
+  }
+  .member-photo.in-view img{
+    filter:grayscale(0%);
+    transform:scale(1.035);
+  }
   .member-photo .tag{
     position:absolute; top:14px; left:14px;
     color:var(--white); font-family:'IBM Plex Mono', monospace;
@@ -158,7 +228,7 @@
 <body>
 
 <header>
-  <div class="logo">studioHAW/U</div>
+  <a class="logo" href="index.html">studioHAW/U</a>
   <nav>
     <a href="index.html#about">ABOUT</a>
     <a href="index.html#works">WORKS</a>
@@ -166,13 +236,24 @@
     <a href="members.html" class="current">MEMBERS</a>
     <a href="index.html#contact">CONTACT</a>
   </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobileNav">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<nav class="mobile-nav" id="mobileNav">
+  <a href="index.html#about">ABOUT</a>
+  <a href="index.html#works">WORKS</a>
+  <a href="index.html#services">SERVICE</a>
+  <a href="members.html" class="current">MEMBERS</a>
+  <a href="index.html#contact">CONTACT</a>
+</nav>
 
 <div class="wrap">
   <div class="page-head">
     <div class="eyebrow"><span class="dim-line"></span>OUR TEAM</div>
-    <h1>メンバー紹介</h1>
-    <p>設計から製作まで、それぞれの持ち場でものづくりに向き合うメンバーです。</p>
+    <h1>メンバー</h1>
+    <p>運営から製作まで、それぞれのフィールドでPJに向き合うメンバー。</p>
   </div>
 
   <!-- ▼各メンバーの img src・名前・経歴などを差し替えてください。人数はこの <div class="member">〜</div> ごとコピーして増減できます -->
@@ -203,7 +284,7 @@
     <div>
       <div class="member-head">
         <h2>内田　琉奈</h2>
-        <span class="role">副代表/分析</span>
+        <span class="role">会長/分析</span>
       </div>
       <p class="member-comment">コーヒーマシンが欲しい</p>
       <dl class="member-spec">
@@ -269,6 +350,48 @@
       }
       lastY = y;
     }, { passive:true });
+  })();
+
+  (function(){
+    var photos = document.querySelectorAll('.member-photo');
+    if(!photos.length || !('IntersectionObserver' in window)) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        entry.target.classList.toggle('in-view', entry.isIntersecting);
+      });
+    }, {
+      // trigger while the photo overlaps the middle band of the viewport
+      rootMargin: '-45% 0px -45% 0px',
+      threshold: 0
+    });
+    photos.forEach(function(photo){ observer.observe(photo); });
+  })();
+
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var mobileNav = document.getElementById('mobileNav');
+    if(!toggle || !mobileNav) return;
+
+    function closeMenu(){
+      document.body.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    function openMenu(){
+      document.body.classList.add('nav-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    toggle.addEventListener('click', function(){
+      if(document.body.classList.contains('nav-open')){
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    mobileNav.querySelectorAll('a').forEach(function(link){
+      link.addEventListener('click', closeMenu);
+    });
   })();
 </script>
 

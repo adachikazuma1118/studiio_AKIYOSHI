@@ -55,24 +55,6 @@
     padding:0 32px;
   }
 
-  /* ---------- crop marks (signature element) ---------- */
-  .crop{
-    position:absolute;
-    width:22px; height:22px;
-    pointer-events:none;
-  }
-  .crop::before, .crop::after{
-    content:'';
-    position:absolute;
-    background:currentColor;
-  }
-  .crop::before{ width:100%; height:1px; top:50%; }
-  .crop::after{ width:1px; height:100%; left:50%; }
-  .crop.tl{ top:18px; left:18px; color:var(--white); }
-  .crop.tr{ top:18px; right:18px; left:auto; color:var(--white); }
-  .crop.bl{ bottom:18px; left:18px; top:auto; color:var(--white); }
-  .crop.br{ bottom:18px; right:18px; top:auto; left:auto; color:var(--white); }
-
   /* ---------- header / nav ---------- */
   header{
     position:fixed;
@@ -116,6 +98,64 @@
     transform:scaleX(1);
     transform-origin:left;
   }
+
+  /* ---------- mobile nav ---------- */
+  .nav-toggle{
+    display:none;
+    position:relative;
+    z-index:60;
+    width:32px; height:22px;
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+  }
+  .nav-toggle span{
+    position:absolute;
+    left:0; right:0;
+    height:1px;
+    background:var(--white);
+    transition:transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.25s, background 0.35s;
+  }
+  .nav-toggle span:nth-child(1){ top:2px; }
+  .nav-toggle span:nth-child(2){ top:11px; }
+  .nav-toggle span:nth-child(3){ top:20px; }
+  body.nav-open .nav-toggle span:nth-child(1){ transform:translateY(9px) rotate(45deg); }
+  body.nav-open .nav-toggle span:nth-child(2){ opacity:0; }
+  body.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-9px) rotate(-45deg); }
+
+  .mobile-nav{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:45;
+    background:var(--paper);
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap:6px;
+    padding:0 40px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-12px);
+    transition:opacity 0.4s cubic-bezier(.2,.8,.2,1), transform 0.4s cubic-bezier(.2,.8,.2,1), visibility 0s linear 0.4s;
+  }
+  body.nav-open .mobile-nav{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+    transition:opacity 0.4s cubic-bezier(.2,.8,.2,1), transform 0.4s cubic-bezier(.2,.8,.2,1);
+  }
+  .mobile-nav a{
+    font-size:clamp(28px, 8vw, 40px);
+    font-weight:300;
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.02em;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    width:100%;
+  }
+  body.nav-open{ overflow:hidden; }
 
   /* ---------- hero ---------- */
   .hero{
@@ -268,9 +308,9 @@
 
   /* ---------- works ---------- */
   .works-grid{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:28px;
+    display:flex;
+    flex-direction:column;
+    gap:112px;
     background:var(--paper);
     max-width:1180px;
     margin:0 auto;
@@ -278,50 +318,49 @@
   }
   .work-card{
     position:relative;
+    display:block;
+  }
+  .work-card .img-frame{
     background:var(--ink);
-    aspect-ratio:4/5;
+    aspect-ratio:16/9;
     overflow:hidden;
   }
   .work-card img{
     transition:transform 0.6s cubic-bezier(.2,.8,.2,1), filter 0.6s;
     filter:grayscale(90%);
   }
-  .work-card:hover img{
-    transform:scale(1.045);
+  .work-card:hover img,
+  .work-card.in-view img{
+    transform:scale(1.035);
     filter:grayscale(0%);
   }
   .work-tag{
-    position:absolute;
-    left:16px; bottom:16px;
-    color:var(--white);
-    z-index:2;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:24px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
   }
-  .work-tag .num{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    opacity:0.8;
-    display:block;
+  .work-tag .top-row{
+    display:flex;
+    align-items:baseline;
   }
   .work-tag .name{
-    font-size:16px;
+    font-size:18px;
     font-weight:500;
     letter-spacing:0.01em;
-    margin-top:4px;
   }
-  .work-veil{
-    position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(23,24,26,0) 55%, rgba(23,24,26,0.85) 100%);
-    z-index:1;
+  .work-tag .year{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--steel);
   }
   .work-card.video-card iframe{
     width:100%; height:100%;
     border:none;
   }
-  .work-card.video-card .work-veil,
-  .work-card.video-card .work-tag{
-    pointer-events:none;
-  }
-  .work-card.placeholder-note{
+  .work-card.placeholder-note .img-frame{
     display:flex;
     align-items:center;
     justify-content:center;
@@ -413,14 +452,15 @@
 
   @media (max-width: 860px){
     header nav{ display:none; }
+    .nav-toggle{ display:block; }
+    .mobile-nav{ display:flex; }
     .about-grid{ grid-template-columns:1fr; gap:40px; }
-    .works-grid{ grid-template-columns:repeat(2, 1fr); }
+    .works-grid{ gap:64px; }
     .services{ grid-template-columns:1fr; }
     .contact-grid{ grid-template-columns:1fr; }
     section{ padding:80px 0; }
   }
   @media (max-width: 520px){
-    .works-grid{ grid-template-columns:1fr; }
     .wrap{ padding:0 20px; }
   }
 </style>
@@ -436,7 +476,18 @@
     <a href="members.html">MEMBERS</a>
     <a href="#contact">CONTACT</a>
   </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobileNav">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#about">ABOUT</a>
+  <a href="#works">WORKS</a>
+  <a href="#services">SERVICE</a>
+  <a href="members.html">MEMBERS</a>
+  <a href="#contact">CONTACT</a>
+</nav>
 
 <!-- ============ HERO ============ -->
 <section class="hero">
@@ -451,12 +502,10 @@
     </div>
   </div>
   <div class="veil"></div>
-  <span class="crop tl"></span><span class="crop tr"></span>
-  <span class="crop bl"></span><span class="crop br"></span>
   <div class="hero-content">
     <div class="hero-eyebrow"><span class="dim-line"></span>ARCHITECTURE / FURNITURE / RENOVATION</div>
     <h1>How<br>Architecture<br>With<br>U</h1>
-    <p class="tagline">空間の設計から家具の製作まで、ひとつの手で仕上げる設計事務所です。</p>
+    <p class="tagline">運営、構想から家具の製作まで、ひとつの手で仕上げる設計事務所です。</p>
   </div>
   <div class="scroll-cue">SCROLL — 001</div>
 </section>
@@ -494,26 +543,34 @@
     </div>
   </div>
   <div class="works-grid">
-    <div class="work-card">
-      <img src="photo/IMG_8638_Original.JPG" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 01</span><span class="name">店舗先可動式ルーバー</span></div>
-    </div>
-    <div class="work-card">
-      <img src="photo/20231223_132703.JPG" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 02</span><span class="name">イチゴ農家直売所</span></div>
-    </div>
-    <div class="work-card">
-      <img src="photo/IMG_6955.JPG" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 03</span><span class="name">今市駄菓子屋</span></div>
-    </div>
-    <div class="work-card">
-      <img src="photo/IMG_8667.JPG" alt="施工事例の写真">
-      <div class="work-veil"></div>
-      <div class="work-tag"><span class="num mono">WORK 04</span><span class="name">佐野古民家改修</span></div>
-    </div>
+    <a class="work-card" href="works/work-01.html">
+      <div class="img-frame"><img src="photo/IMG_8638_Original.JPG" alt="施工事例の写真"></div>
+      <div class="work-tag">
+        <div class="top-row"><span class="name">店舗先可動式ルーバー</span></div>
+        <span class="year mono">2023</span>
+      </div>
+    </a>
+    <a class="work-card" href="works/work-02.html">
+      <div class="img-frame"><img src="photo/20231223_132703.JPG" alt="施工事例の写真"></div>
+      <div class="work-tag">
+        <div class="top-row"><span class="name">イチゴ農家直売所</span></div>
+        <span class="year mono">2023</span>
+      </div>
+    </a>
+    <a class="work-card" href="works/work-03.html">
+      <div class="img-frame"><img src="photo/IMG_6955.JPG" alt="施工事例の写真"></div>
+      <div class="work-tag">
+        <div class="top-row"><span class="name">今市駄菓子屋</span></div>
+        <span class="year mono">2023</span>
+      </div>
+    </a>
+    <a class="work-card" href="works/work-04.html">
+      <div class="img-frame"><img src="photo/IMG_8667.JPG" alt="施工事例の写真"></div>
+      <div class="work-tag">
+        <div class="top-row"><span class="name">佐野古民家改修</span></div>
+        <span class="year mono">2024~</span>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -530,7 +587,7 @@
     <div class="service-card">
       <span class="no mono">FURNITURE</span>
       <h3>家具製作</h3>
-      <p>暮らしに合わせたオーダーメイド家具の設計・製作。素材選びから寸法の調整まで、空間に馴染む一点をつくります。</p>
+      <p>暮らしに合わせたオーダーメイド家具の設計・製作。今お使いの家具を状況に合わせて再構築することも可能です。</p>
     </div>
     <div class="service-card">
       <span class="no mono">RENOVATION</span>
@@ -551,10 +608,10 @@
     <div class="contact-grid">
       <p>ご相談・お見積りのご依頼は、お気軽にご連絡ください。写真や図面など資料があれば合わせてお送りいただくとスムーズです。</p>
       <dl class="contact-list">
-        <div class="contact-row"><dt>MAIL</dt><dd><a href="mailto:info@example.com">info@example.com</a></dd></div>
-        <div class="contact-row"><dt>TEL</dt><dd>[電話番号を入力]</dd></div>
-        <div class="contact-row"><dt>ADDRESS</dt><dd>[住所を入力]</dd></div>
-        <div class="contact-row"><dt>INSTAGRAM</dt><dd><a href="#">@[アカウント名を入力]</a></dd></div>
+        <div class="contact-row"><dt>MAIL</dt><dd><a href="mailto:info@example.com">studio_hawu@gmail.com</a></dd></div>
+        <div class="contact-row"><dt>TEL</dt><dd>090-4488-8976</dd></div>
+        <div class="contact-row"><dt>ADDRESS</dt><dd>321-0904 栃木県宇都宮市陽東7-1-2</dd></div>
+        <div class="contact-row"><dt>INSTAGRAM</dt><dd><a href="#">@studio_hawu</a></dd></div>
       </dl>
     </div>
   </div>
@@ -600,6 +657,48 @@
       }
       lastY = y;
     }, { passive:true });
+  })();
+
+  (function(){
+    var cards = document.querySelectorAll('.work-card');
+    if(!cards.length || !('IntersectionObserver' in window)) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        entry.target.classList.toggle('in-view', entry.isIntersecting);
+      });
+    }, {
+      // trigger while the card overlaps the middle band of the viewport
+      rootMargin: '-45% 0px -45% 0px',
+      threshold: 0
+    });
+    cards.forEach(function(card){ observer.observe(card); });
+  })();
+
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var mobileNav = document.getElementById('mobileNav');
+    if(!toggle || !mobileNav) return;
+
+    function closeMenu(){
+      document.body.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    function openMenu(){
+      document.body.classList.add('nav-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    toggle.addEventListener('click', function(){
+      if(document.body.classList.contains('nav-open')){
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    mobileNav.querySelectorAll('a').forEach(function(link){
+      link.addEventListener('click', closeMenu);
+    });
   })();
 </script>
 
